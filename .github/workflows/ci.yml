@@ -1,0 +1,13 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GNU Octave
+        run: sudo apt-get update && sudo apt-get install -y octave
+      - name: Plan the path
+        run: octave-cli run_all.m
+      - name: Tests
+        run: octave-cli --eval "run('tests/run_tests.m')"
